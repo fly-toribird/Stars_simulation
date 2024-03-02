@@ -4,9 +4,9 @@ from PIL import Image
 
 tick = 60
 roop = 100
-history = []
 pictures = []
 G = 6.67430 * (10 ** -11)
+Stars = []
 
 class star() :
     """math:kg distance:m"""
@@ -17,31 +17,34 @@ class star() :
         self.speed_x = speed_x
         self.speed_y = speed_y
 
+    def move(self,Stars) :
+        """StoK : Self to K"""
+        for k in Stars :
+            if k == self :
+                continue
+            distance = math.sqrt((k.x-self.x)**2 + (k.y-self.y)**2)
+            StoK_x = k.x - self.x
+            StoK_y = k.y - self.y
+            self.speed_x += (StoK_x * G * (k.math) / (2 * (distance ** 2))) * tick
+            self.speed_y += (StoK_y * G * (k.math) / (2 * (distance ** 2))) * tick
+            self.x += self.speed_x
+            self.y += self.speed_y
+
 A = star(0,0,1.989 * (10 ** 30),0,0) # Sun
-B = star(149597870700,0,5.972 * (10 ** 24),0,30556) # Earth
+B = star(149597870700,0,5.972 * (10 ** 24),0,30556000) # Earth
 
 distance = math.sqrt((A.x-B.x)**2 + (A.y-B.y)**2)
 
 def move() :
-    AtoB_x = B.x - A.x
-    AtoB_y = B.y - A.y
-    BtoA_x = A.x - B.x
-    BtoA_y = A.y - B.y
-    A.speed_x += (AtoB_x * G * (B.math) / (2 * (distance ** 2))) * tick
-    A.speed_y += (AtoB_y * G * (B.math) / (2 * (distance ** 2))) * tick
-    B.speed_x += (BtoA_x * G * (A.math) / (2 * (distance ** 2))) * tick
-    B.speed_y += (BtoA_y * G * (A.math) / (2 * (distance ** 2))) * tick
-    A.x += A.speed_x
-    A.y += A.speed_y
-    B.x += B.speed_x
-    B.y += B.speed_y
-
+    for i in Stars :
+        i.move(Stars)
 
 k = 0
 while k < roop :
-    history.append([[A.x,A.y],[B.x,B.y]])
     plt.plot(A.x,A.y,".",c="red")
     plt.plot(B.x,B.y,".",c="green")
+    plt.xlim(-200000000000,200000000000)
+    plt.ylim(-200000000000,200000000000)
     plt.savefig(f"./images/{k}.png")
     pic_name = f"{k}.png"
     img = Image.open(f"./images/{pic_name}")
