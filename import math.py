@@ -1,6 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 from PIL import Image
+import colorsys
 
 tick = 60
 roop = 100
@@ -10,12 +11,13 @@ Stars = []
 
 class star() :
     """math:kg distance:m"""
-    def __init__(self,x,y,math,speed_x,speed_y) :
+    def __init__(self,x,y,math,speed_x,speed_y,name) :
         self.x = x
         self.y = y
         self.math = math
         self.speed_x = speed_x
         self.speed_y = speed_y
+        self.name = name
 
     def move(self,Stars) :
         """StoK : Self to K"""
@@ -30,14 +32,17 @@ class star() :
             self.x += self.speed_x
             self.y += self.speed_y
 
-A = star(0,0,1.989 * (10 ** 30),0,0) # Sun
-B = star(149597870700,0,5.972 * (10 ** 24),0,30556000) # Earth
-
-distance = math.sqrt((A.x-B.x)**2 + (A.y-B.y)**2)
+Stars.append(star(0,0,1.989 * (10 ** 30),0,0,"Sun"))
+Stars.append(star(149597870700,0,5.972 * (10 ** 24),0,30556000,"Earth")) # Earth
 
 def move() :
     for i in Stars :
         i.move(Stars)
+
+def hsv_to_rgb(h,s,v) :
+    return colorsys.hls_to_rgb(h, s, v)
+
+colors = 
 
 k = 0
 while k < roop :
